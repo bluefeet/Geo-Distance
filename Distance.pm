@@ -1,12 +1,19 @@
 package Geo::Distance;
 
-use 5.006;
 use strict;
 use warnings;
-use Carp;
+
+our $VERSION = '0.12';
+
+use Carp qw( croak );
 use Math::Trig qw( great_circle_distance deg2rad rad2deg acos pi asin tan atan );
-our $VERSION = '0.11';
-use constant KILOMETER_RHO => 6371.64;
+use ReadOnly;
+
+# Radius of the earth at the equator.
+Readonly my $RADIUS_KILOMETER => 6371.64;
+
+# Derived from: $geo->distance( 'kilometer', 10,0, 11,0 ) / $geo->{units}->{kilometer}
+Readonly my $DEGREE_RATIO => 0.0174532925199433;
 
 sub new {
     my $class = shift;
@@ -16,7 +23,7 @@ sub new {
     $self->{formula} = 'hsin';
     $self->{units} = {};
     if(!$args{no_units}){
-        $self->reg_unit( KILOMETER_RHO, 'kilometer' );
+        $self->reg_unit( $RADIUS_KILOMETER, 'kilometer' );
         $self->reg_unit( 1000, 'meter', => 'kilometer' );
         $self->reg_unit( 100, 'centimeter' => 'meter' );
         $self->reg_unit( 10, 'millimeter' => 'centimeter' );
@@ -43,10 +50,6 @@ sub new {
         $self->reg_unit( 'league' => 4.828032, 'kilometer' );
         $self->reg_unit( 1.8288, 'fathom' => 'meter' );
     }
-
-    # Number of units in a single degree (lat or lon) at the equator.
-    # Derived from: $geo->distance( 'kilometer', 10,0, 11,0 ) / $geo->{units}->{kilometer}
-    $self->{deg_ratio} = 0.0174532925199433;
 
     return $self;
 }
@@ -182,7 +185,7 @@ sub closest {
     my $distance = $args{distance} || croak('You must supply a distance');
     my $unit = $args{unit} || croak('You must specify a unit type');
     my $unit_size = $self->{units}->{$unit} || croak('This unit type is not known');
-    my $degrees = $distance / ( $self->{deg_ratio} * $unit_size );
+    my $degrees = $distance / ( $DEGREE_RATIO * $unit_size );
     my $lon_field = $args{lon_field} || 'lon';
     my $lat_field = $args{lat_field} || 'lat';
     my $fields = $args{fields} || [];
@@ -510,53 +513,40 @@ The closest() method needs to be more flexible and (among other things) allow ta
 
 =back
 
-=head1 BUGS
-
-Report them to aran@bluefeet.net.
-
-=head1 CHEERS
-
-Thanks!
+=head1 CONTRIBUTORS
 
 =over 4
 
-=item *
+=item Rhesa Rozendaal
 
-I<Rhesa Rozendaal>
+=item Dean Scott
 
-=item *
+=item Michael R. Meuser
 
-I<Dean Scott>
+=item Jack D.
 
-=item *
+=item Bryce Nesbitt
 
-I<Michael R. Meuser>
+=back
 
-=item *
+=head1 SEE ALSO
 
-I<Jack D.>
+=over 4
 
-=item *
+=item L<Math::Trig> - Inverse and hyperbolic trigonemetric Functions.
 
-I<Bryce Nesbitt>
+=item L<http://www.census.gov/cgi-bin/geo/gisfaq?Q5.1> - A overview of calculating distances.
+
+=item L<http://williams.best.vwh.net/avform.htm> - Aviation Formulary.
 
 =back
 
 =head1 AUTHOR
 
-Copyright (C) 2003-2005 Aran Clary Deltac (CPAN: BLUEFEET)
+Aran Clary Deltac <bluefeet@cpan.org>
+
+=head1 LICENSE
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
-
-Address bug reports and comments to: E<lt>aran@bluefeet.netE<gt>. When sending bug reports, 
-please provide the version of Geo::Distance that you are useing.
-
-=head1 SEE ALSO
-
-L<Math::Trig> - Inverse and hyperbolic trigonemetric Functions.
-
-L<http://www.census.gov/cgi-bin/geo/gisfaq?Q5.1> - A overview of calculating distances.
-
-L<http://williams.best.vwh.net/avform.htm> - Aviation Formulary.
+it under the same terms as Perl itself.
 
