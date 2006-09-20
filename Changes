@@ -1,5 +1,8 @@
 Revision history for Perl extension Geo::Distance.
 
+0.12
+ - Noted GIS::Distance in POD.
+
 0.11 : 2005-09-01
  - Fixed some errors in the documentation.
  - Added an highly accurate ellipsoid formula.
