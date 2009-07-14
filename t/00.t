@@ -1,8 +1,11 @@
 use strict;
-use Test::More qw(no_plan);
-use DBI;
-
-BEGIN{ use_ok( 'Geo::Distance' ); }
+use Test::More;
+BEGIN{
+    eval( 'use DBI' );
+    plan( skip_all => 'DBI required for these tests' ) if $@;
+    plan( 'no_plan' );
+    use_ok( 'Geo::Distance' );
+}
 
 my $geo = eval{ return Geo::Distance->new() };
 ok(!$@,'create a Geo::Distance object');

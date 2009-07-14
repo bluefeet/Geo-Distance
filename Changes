@@ -2,6 +2,8 @@ Revision history for Perl extension Geo::Distance.
 
 0.12
  - Noted GIS::Distance in POD.
+ - Some cleanups to install process.
+ - Check for DBI in tests before using it.
 
 0.11 : 2005-09-01
  - Fixed some errors in the documentation.

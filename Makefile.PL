@@ -1,11 +1,13 @@
-use ExtUtils::MakeMaker;
+use strict;
+use warnings;
 
-WriteMakefile(
-	'NAME' => 'Geo::Distance',
-	'VERSION_FROM' => 'Distance.pm',
-	'PREREQ_PM' => {},
-	($] >= 5.005 ? (
-		ABSTRACT_FROM => 'Distance.pm',
-		AUTHOR => 'Aran Clary Deltac <aran@arandeltac.com>'
-	) : ()),
-);
+use inc::Module::Install;
+
+name     'Geo-Distance';
+perl_version '5.008003';
+all_from 'lib/Geo/Distance.pm';
+
+build_requires 'Test::More' => 0.62;
+
+WriteAll;
+

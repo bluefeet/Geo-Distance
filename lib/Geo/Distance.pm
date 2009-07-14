@@ -54,7 +54,7 @@ use strict;
 use warnings;
 use Carp;
 use Math::Trig qw( great_circle_distance deg2rad rad2deg acos pi asin tan atan );
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 use constant KILOMETER_RHO => 6371.64;
 #-------------------------------------------------------------------------------
 
@@ -444,6 +444,9 @@ sub closest {
 }
 #-------------------------------------------------------------------------------
 
+1;
+__END__
+
 =head1 FORMULAS
 
 Currently Geo::Distance only has spherical and flat type formulas.  
@@ -571,16 +574,6 @@ I<Bryce Nesbitt>
 
 =back
 
-=head1 AUTHOR
-
-Copyright (C) 2003-2005 Aran Clary Deltac (CPAN: BLUEFEET)
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
-
-Address bug reports and comments to: E<lt>aran@bluefeet.netE<gt>. When sending bug reports, 
-please provide the version of Geo::Distance that you are useing.
-
 =head1 SEE ALSO
 
 L<Math::Trig> - Inverse and hyperbolic trigonemetric Functions.
@@ -589,8 +582,12 @@ L<http://www.census.gov/cgi-bin/geo/gisfaq?Q5.1> - A overview of calculating dis
 
 L<http://williams.best.vwh.net/avform.htm> - Aviation Formulary.
 
-=cut
+=head1 AUTHOR
 
-#-------------------------------------------------------------------------------
+Aran Clary Deltac <bluefeet@cpan.org>
 
-1;
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
