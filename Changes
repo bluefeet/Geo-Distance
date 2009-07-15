@@ -2,6 +2,7 @@ Revision history for Perl extension Geo::Distance.
 
 0.13
  - Use Geo::Distance::XS if available. (gray <gray@cpan.org>)
+ - Declare Math::Trig dependency.
 
 0.12
  - Noted GIS::Distance in POD.

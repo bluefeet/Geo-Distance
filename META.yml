@@ -18,8 +18,11 @@ no_index:
   directory:
     - inc
     - t
+recommends:
+  Geo::Distance::XS: 0
 requires:
+  Math::Complex: 0
   perl: 5.8.3
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.12
+version: 0.13
