@@ -54,7 +54,7 @@ use strict;
 use warnings;
 use Carp;
 use Math::Trig qw( great_circle_distance deg2rad rad2deg acos pi asin tan atan );
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 use constant KILOMETER_RHO => 6371.64;
 #-------------------------------------------------------------------------------
 
@@ -436,7 +436,7 @@ sub closest {
 	}
 
 	# Split for count.
-	if( $count ){
+	if( $count and $count < @$locations ){
 		splice @$locations, $count;
 	}
 	

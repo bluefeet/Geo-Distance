@@ -1,5 +1,8 @@
 Revision history for Perl extension Geo::Distance.
 
+0.14
+ - Fix "splice() offset past end of array" as filed in RT 26446.
+
 0.13
  - Use Geo::Distance::XS if available. (gray <gray@cpan.org>)
  - Declare Math::Trig dependency.
