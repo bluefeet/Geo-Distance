@@ -9,5 +9,7 @@ all_from 'lib/Geo/Distance.pm';
 
 build_requires 'Test::More' => 0.62;
 
+recommends 'Geo::Distance::XS';
+
 WriteAll;
 

@@ -4,8 +4,12 @@ BEGIN{
     eval( 'use DBI' );
     plan( skip_all => 'DBI required for these tests' ) if $@;
     plan( 'no_plan' );
+
+    BEGIN { $ENV{GEO_DISTANCE_PP} = 1; }
     use_ok( 'Geo::Distance' );
 }
+
+ok(! defined &distance_hsin, 'prevent XS from loading; use pure Perl');
 
 my $geo = eval{ return Geo::Distance->new() };
 ok(!$@,'create a Geo::Distance object');

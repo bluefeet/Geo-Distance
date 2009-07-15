@@ -444,6 +444,10 @@ sub closest {
 }
 #-------------------------------------------------------------------------------
 
+INIT {
+	eval "use Geo::Distance::XS" unless $ENV{GEO_DISTANCE_PP};
+}
+
 1;
 __END__
 
@@ -518,6 +522,12 @@ Math::Trig states that the formula that it uses is:
   lat0 = 90 degrees - phi0
   lat1 = 90 degrees - phi1
   d = R * arccos(cos(lat0) * cos(lat1) * cos(lon1 - lon01) + sin(lat0) * sin(lat1))
+
+=head1 NOTES
+
+If L<Geo::Distance::XS> is installed, this module will use it. You can
+stick with the pure Perl version by setting the GEO_DISTANCE_PP environment
+variable before using this module.
 
 =head1 TODO
 

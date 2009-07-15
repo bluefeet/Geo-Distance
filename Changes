@@ -1,5 +1,8 @@
 Revision history for Perl extension Geo::Distance.
 
+0.13
+ - Use Geo::Distance::XS if available. (gray <gray@cpan.org>)
+
 0.12
  - Noted GIS::Distance in POD.
  - Some cleanups to install process.
