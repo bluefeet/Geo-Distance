@@ -444,8 +444,8 @@ sub closest {
 }
 #-------------------------------------------------------------------------------
 
-INIT {
-	eval "use Geo::Distance::XS" unless $ENV{GEO_DISTANCE_PP};
+unless( $ENV{GEO_DISTANCE_PP} ) {
+    eval "use Geo::Distance::XS";
 }
 
 1;
