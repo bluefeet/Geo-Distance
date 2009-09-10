@@ -1,8 +1,10 @@
 Revision history for Perl extension Geo::Distance.
 
+0.15
+ - Stop "Too late to run INIT block" warning (gray <gray@cpan.org>)
+
 0.14
  - Fix "splice() offset past end of array" as filed in RT 26446.
- - Stop "Too late to run INIT block" warning (gray <gray@cpan.org>)
 
 0.13
  - Use Geo::Distance::XS if available. (gray <gray@cpan.org>)

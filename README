@@ -54,8 +54,8 @@ PROPERTIES
 
       # DMS to Decimal
       my $decimal = $degrees + ($minutes/60) + ($seconds/3600);
-      
-  # Precision Six Integer to Decimal
+  
+      # Precision Six Integer to Decimal
       my $decimal = $integer * .000001;
 
     If you want to convert from decimal radians to degrees you can use
