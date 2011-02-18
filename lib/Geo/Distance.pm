@@ -386,7 +386,7 @@ sub closest {
 	$fields = join( ',', @$fields );
 	my $count = $args{count} || 0;
 	my $sort = $args{sort} || ( $count ? 1 : 0 );
-	my $where = qq{$lon_field>=? AND $lat_field>=? AND $lon_field<=? AND $lat_field<=?};
+	my $where = qq{$lon_field >= ? AND $lat_field >= ? AND $lon_field <= ? AND $lat_field <= ?};
 	$where .= ( $args{where} ? " AND ($args{where})" : '' );
 	
 	my @bind = (
