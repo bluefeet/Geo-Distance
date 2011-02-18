@@ -149,7 +149,7 @@ sub new {
 
 Allows you to retrieve and set the formula that is currently being used to 
 calculate distances.  The availabel formulas are hsin, polar, cos, and mt.  hsin 
-is the default and mt/cos are depreciated in favor of hsin.  polar should be 
+is the default and mt/cos are deprecated in favor of hsin.  polar should be 
 used when calculating coordinates near the poles.
 
 =cut
