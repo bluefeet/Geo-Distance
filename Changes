@@ -1,6 +1,8 @@
 Revision history for Perl extension Geo::Distance.
 
 {{$NEXT}}
+
+0.17      2011-06-28
  - Fix circular package dependencies with Geo::Distance::XS (not really
    an issue practically, but then again it wasn't really helping).
 
