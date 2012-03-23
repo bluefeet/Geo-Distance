@@ -1,6 +1,8 @@
 Revision history for Perl extension Geo::Distance.
 
 {{$NEXT}}
+
+0.18      2012-03-23
  - Fix gcd calculation to use ** instead of ^.
 
 0.17      2011-06-28
