@@ -1,11 +1,11 @@
+#!/usr/bin/env perl
 use strict;
-use Test::More;
-BEGIN{
-    eval( 'use DBI' );
-    plan( skip_all => 'DBI required for these tests' ) if $@;
-    plan( 'no_plan' );
+use warnings;
 
-    BEGIN { $ENV{GEO_DISTANCE_PP} = 1; }
+use Test::More;
+
+BEGIN {
+    $ENV{GEO_DISTANCE_PP} = 1;
     use_ok( 'Geo::Distance' );
 }
 
@@ -14,9 +14,7 @@ ok(! defined &distance_hsin, 'prevent XS from loading; use pure Perl');
 my $geo = eval{ return Geo::Distance->new() };
 ok(!$@,'create a Geo::Distance object');
 
-my $dist;
-
-$dist = eval{ $geo->distance( 'mile', "-81.044","35.244", "-80.8272","35.1935" ) };
+my $dist = eval{ $geo->distance( 'mile', "-81.044","35.244", "-80.8272","35.1935" ) };
 ok( (not($@) and int($dist)==12), 'measure a distance by mile' );
 
 SKIP: {
@@ -97,3 +95,4 @@ sub load_zips {
     $dbh->commit;
 }
 
+done_testing;

@@ -253,9 +253,9 @@ sub distance {
         }
         elsif($self->{formula} eq 'gcd'){
             $c = 2*asin( sqrt(
-                ( sin(($lat1-$lat2)/2) )^2 + 
+                ( sin(($lat1-$lat2)/2) )**2 + 
                 cos($lat1) * cos($lat2) * 
-                ( sin(($lon1-$lon2)/2) )^2
+                ( sin(($lon1-$lon2)/2) )**2
             ) );
 
             # Eric Samuelson recommended this formula.
