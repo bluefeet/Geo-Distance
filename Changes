@@ -1,6 +1,7 @@
 Revision history for Perl extension Geo::Distance.
 
 {{$NEXT}}
+ - Fix gcd calculation to use ** instead of ^.
 
 0.17      2011-06-28
  - Fix circular package dependencies with Geo::Distance::XS (not really
