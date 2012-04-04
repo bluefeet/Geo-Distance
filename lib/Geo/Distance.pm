@@ -244,7 +244,7 @@ sub distance {
             my $dlon = $lon2 - $lon1;
             my $dlat = $lat2 - $lat1;
             my $a = (sin($dlat/2)) ** 2 + cos($lat1) * cos($lat2) * (sin($dlon/2)) ** 2;
-            $c = 2 * atan2(sqrt($a), sqrt(1-$a));
+            $c = 2 * atan2(sqrt($a), sqrt(abs(1-$a)));
         }
         elsif($self->{formula} eq 'polar'){
             my $a = pi/2 - $lat1;
