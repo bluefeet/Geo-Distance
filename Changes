@@ -1,6 +1,8 @@
 Revision history for Perl extension Geo::Distance.
 
 {{$NEXT}}
+ - Fix a test that was comparing floating point numbers and falling over on
+   some platforms.
 
 0.19      2012-04-03
  - Fix various typos.

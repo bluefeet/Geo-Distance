@@ -19,8 +19,11 @@ my $old_value = old_gcd( $geo, 'mile', "-81.044","35.244", "-80.8272","35.1935" 
 $geo->formula('hsin');
 my $control_value = $geo->distance( 'mile', "-81.044","35.244", "-80.8272","35.1935" );
 
-cmp_ok( $new_value, '==', $control_value, 'gcd now produces same result as hsin' );
-cmp_ok( $old_value, '!=', $control_value, 'old gcd did not produce same result as hsin' );
+ok( abs($new_value - $control_value) < 0.00000000001, 'gcd now produces same result as hsin' ) or
+    diag "$new_value is not equal to $control_value";
+
+ok( abs($old_value - $control_value) > 0.00000000001, 'old gcd did not produce same result as hsin' ) or
+    diag "$old_value is equal to $control_value";
 
 sub old_gcd {
     my($geo,$unit,$lon1,$lat1,$lon2,$lat2) = @_;
