@@ -36,7 +36,7 @@ calculations.
 The L<GIS::Distance> module is being worked on as a replacement for this module.  In the
 near future Geo::Distance will become a lightweight wrapper around GIS::Distance so that
 legacy code benefits from fixes to GIS::Distance through the old Geo::Distance API.  For
-any new developement I suggest that you look in to GIS::Distance.
+any new development I suggest that you look in to GIS::Distance.
 
 =head1 STABILITY
 
