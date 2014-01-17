@@ -11,7 +11,7 @@ Geo::Distance - Calculate Distances and Closest Locations
   use Geo::Distance;
   my $geo = new Geo::Distance;
   $geo->formula('hsin');
-  $geo->reg_unit( 'toad_hop', 200120 );
+  $geo->reg_unit( 200120, 'toad_hop );
   $geo->reg_unit( 'frog_hop' => 6 => 'toad_hop' );
   my $distance = $geo->distance( 'unit_type', $lon1,$lat1 => $lon2,$lat2 );
   my $locations = $geo->closest(
