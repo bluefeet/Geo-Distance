@@ -19,7 +19,7 @@ ok( (not($@) and int($dist)==12), 'measure a distance by mile' );
 
 SKIP: {
     eval{ require DBD::SQLite };
-    skip "DBD::SQLite not installed" if $@;
+    skip "DBD::SQLite not installed", 6 if $@;
 
     my $dbh = eval{ return DBI->connect( "dbi:SQLite:dbname=test.db", "", "", {AutoCommit => 0} ) };
     ok( !$@, 'connect/create SQLite test.db' );
