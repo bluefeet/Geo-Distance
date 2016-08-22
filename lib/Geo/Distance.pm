@@ -409,16 +409,7 @@ sub closest {
 
     # Sort.
     if( $sort ){
-        my $location;
-        for(my $i=@$locations-1; $i>=0; $i--){
-            for(my $j=$i-1; $j>=0; $j--){
-                if($locations->[$i]->{distance} < $locations->[$j]->{distance}){
-                    $location = $locations->[$i];
-                    $locations->[$i] = $locations->[$j];
-                    $locations->[$j] = $location;
-                }
-            }
-        }
+        @$locations = sort { $a->{distance} <=> $b->{distance} } @$locations;
     }
 
     # Split for count.
