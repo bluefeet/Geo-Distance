@@ -37,6 +37,9 @@ SKIP: {
     ok( (@$locations==2), 'found correct number of locations by kilometer' );
     $locations = $geo->closest( dbh=>$dbh, table=>'zips', lon=>'-80.8577', lat=>'35.1316', unit=>'mile', distance=>'5', count=>3 );
     ok( (@$locations==3), 'found correct number of locations limited by count' );
+    ok( ($locations->[0]->{distance} < $locations->[1]->{distance} and
+         $locations->[1]->{distance} < $locations->[2]->{distance}),
+        "Correctly sorted the locations");
 
     $dbh->disconnect;
     unlink('test.db');
