@@ -41,17 +41,17 @@
          }
       },
       "runtime" : {
-         "recommends" : {
-            "GIS::Distance::Fast" : "0.09"
-         },
          "requires" : {
             "Carp" : "0",
-            "GIS::Distance" : "0.10",
-            "GIS::Distance::Constants" : "0.10",
+            "GIS::Distance" : "0.11",
+            "GIS::Distance::Constants" : "0.11",
             "perl" : "5.008001"
          }
       },
       "test" : {
+         "recommends" : {
+            "DBD::SQLite" : "1.46"
+         },
          "requires" : {
             "Test2::V0" : "0.000094"
          }
