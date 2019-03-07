@@ -79,6 +79,7 @@
       "gray <gray@cpan.org>",
       "Ævar Arnfjörð Bjarmason <avarab@gmail.com>"
    ],
+   "x_deprecated" : 1,
    "x_serialization_backend" : "JSON::PP version 4.02",
    "x_static_install" : 1
 }

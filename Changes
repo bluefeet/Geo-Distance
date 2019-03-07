@@ -2,6 +2,7 @@ Revision history for Perl extension Geo-Distance.
 
 {{$NEXT}}
 
+ - Officially set the x_deprecated META flag.
  - Use GIS::Distance 0.11+ for all distance calculations.
  - Lots and lots of documentation edits for the above.
  - Migrate build tooling from Dist::Zilla to Minilla.
