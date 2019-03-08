@@ -155,12 +155,24 @@ when calculating coordinates near the poles.
 
 sub formula {
     my $self = shift;
+
+    return $self->{formula} if !$_[0];
     my $formula = shift;
-    if( $formula !~ /^(mt|cos|hsin|polar|gcd|tv)$/s ){
-        croak('Invalid formula (only mt, cos, hsin, polar, gcd and tv are supported)');
-    }else{
-        $self->{formula} = $formula;
-    }
+
+    my $gis_formula = ($formula eq 'mt')    ? 'MathTrig'
+                    : ($formula eq 'cos')   ? 'Cosine'
+                    : ($formula eq 'hsin')  ? 'Haversine'
+                    : ($formula eq 'polar') ? 'Polar'
+                    : ($formula eq 'gcd')   ? 'GreatCircle'
+                    : ($formula eq 'tv')    ? 'Vincenty'
+                    : undef;
+
+    croak('Invalid formula (only mt, cos, hsin, polar, gcd and tv are supported)')
+        if !$gis_formula;
+
+    $self->{formula} = $formula;
+    $self->{gis_formula} = $gis_formula;
+
     return $formula;
 }
 
@@ -232,26 +244,10 @@ sub distance {
     my $unit_rho = $self->{units}->{$unit};
     croak('Unkown unit type "' . $unit . '"') if !$unit_rho;
 
-    my $rho_ratio = $unit_rho / $KILOMETER_RHO;
+    my $gis = GIS::Distance->new( $self->{gis_formula} );
+    my $km = $gis->{code}->( $lon1, $lat1, $lon2, $lat2 );
 
-    my $formula = $self->{formula};
-
-    $formula = ($formula eq 'mt') ? 'MathTrig'
-             : ($formula eq 'cos') ? 'Cosine'
-             : ($formula eq 'hsin') ? 'Haversine'
-             : ($formula eq 'polar') ? 'Polar'
-             : ($formula eq 'gcd') ? 'GreatCircle'
-             : ($formula eq 'tv') ? 'Vincenty'
-             : undef;
-
-    croak('Unkown distance formula "' . $self->{formula} . '"')
-        if !$formula;
-
-    my $gis = GIS::Distance->new( $formula );
-
-    my $km = $gis->distance_km( $lon1, $lat1, $lon2, $lat2 );
-
-    return $km * $rho_ratio;
+    return $km * ($unit_rho / $KILOMETER_RHO);
 }
 
 =head2 closest
