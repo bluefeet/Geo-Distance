@@ -250,6 +250,99 @@ sub distance {
     return $km * ($unit_rho / $KILOMETER_RHO);
 }
 
+use Math::Trig qw( pi deg2rad );
+
+sub old_distance {
+    my($self,$unit,$lon1,$lat1,$lon2,$lat2) = @_;
+    croak('Unkown unit type "'.$unit.'"') unless($unit = $self->{units}->{$unit});
+
+    if($self->{formula} eq 'mt'){
+        return great_circle_distance(
+            deg2rad($lon1),
+            deg2rad(90 - $lat1),
+            deg2rad($lon2),
+            deg2rad(90 - $lat2),
+            $unit
+        );
+    }
+
+    $lon1 = deg2rad($lon1); $lat1 = deg2rad($lat1);
+    $lon2 = deg2rad($lon2); $lat2 = deg2rad($lat2);
+    my $c;
+    if($self->{formula} eq 'cos'){
+        my $a = sin($lat1) * sin($lat2);
+        my $b = cos($lat1) * cos($lat2) * cos($lon2 - $lon1);
+        $c = acos($a + $b);
+    }
+    elsif($self->{formula} eq 'hsin'){
+        my $dlon = $lon2 - $lon1;
+        my $dlat = $lat2 - $lat1;
+        my $a = (sin($dlat/2)) ** 2 + cos($lat1) * cos($lat2) * (sin($dlon/2)) ** 2;
+        $c = 2 * atan2(sqrt($a), sqrt(abs(1-$a)));
+    }
+    elsif($self->{formula} eq 'polar'){
+        my $a = pi/2 - $lat1;
+        my $b = pi/2 - $lat2;
+        $c = sqrt( $a ** 2 + $b ** 2 - 2 * $a * $b * cos($lon2 - $lon1) );
+    }
+    elsif($self->{formula} eq 'gcd'){
+        $c = 2*asin( sqrt(
+            ( sin(($lat1-$lat2)/2) )**2 +
+            cos($lat1) * cos($lat2) *
+            ( sin(($lon1-$lon2)/2) )**2
+        ) );
+
+        # Eric Samuelson recommended this formula.
+        # http://forums.devshed.com/t54655/sc3d021a264676b9b440ea7cbe1f775a1.html
+        # http://williams.best.vwh.net/avform.htm
+        # It seems to produce the same results at the hsin formula, so...
+
+        #my $dlon = $lon2 - $lon1;
+        #my $dlat = $lat2 - $lat1;
+        #my $a = (sin($dlat / 2)) ** 2
+        #    + cos($lat1) * cos($lat2) * (sin($dlon / 2)) ** 2;
+        #$c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    }
+    elsif($self->{formula} eq 'tv'){
+        my($a,$b,$f) = (6378137,6356752.3142,1/298.257223563);
+        my $l = $lon2 - $lon1;
+        my $u1 = atan((1-$f) * tan($lat1));
+        my $u2 = atan((1-$f) * tan($lat2));
+        my $sin_u1 = sin($u1); my $cos_u1 = cos($u1);
+        my $sin_u2 = sin($u2); my $cos_u2 = cos($u2);
+        my $lambda = $l;
+        my $lambda_pi = 2 * pi;
+        my $iter_limit = 20;
+        my($cos_sq_alpha,$sin_sigma,$cos2sigma_m,$cos_sigma,$sigma);
+        while( abs($lambda-$lambda_pi) > 1e-12 && --$iter_limit>0 ){
+            my $sin_lambda = sin($lambda); my $cos_lambda = cos($lambda);
+            $sin_sigma = sqrt(($cos_u2*$sin_lambda) * ($cos_u2*$sin_lambda) +
+                ($cos_u1*$sin_u2-$sin_u1*$cos_u2*$cos_lambda) * ($cos_u1*$sin_u2-$sin_u1*$cos_u2*$cos_lambda));
+            $cos_sigma = $sin_u1*$sin_u2 + $cos_u1*$cos_u2*$cos_lambda;
+            $sigma = atan2($sin_sigma, $cos_sigma);
+            my $alpha = asin($cos_u1 * $cos_u2 * $sin_lambda / $sin_sigma);
+            $cos_sq_alpha = cos($alpha) * cos($alpha);
+            $cos2sigma_m = $cos_sigma - 2*$sin_u1*$sin_u2/$cos_sq_alpha;
+            my $cc = $f/16*$cos_sq_alpha*(4+$f*(4-3*$cos_sq_alpha));
+            $lambda_pi = $lambda;
+            $lambda = $l + (1-$cc) * $f * sin($alpha) *
+                ($sigma + $cc*$sin_sigma*($cos2sigma_m+$cc*$cos_sigma*(-1+2*$cos2sigma_m*$cos2sigma_m)));
+        }
+        undef if( $iter_limit==0 );
+        my $usq = $cos_sq_alpha*($a*$a-$b*$b)/($b*$b);
+        my $aa = 1 + $usq/16384*(4096+$usq*(-768+$usq*(320-175*$usq)));
+        my $bb = $usq/1024 * (256+$usq*(-128+$usq*(74-47*$usq)));
+        my $delta_sigma = $bb*$sin_sigma*($cos2sigma_m+$bb/4*($cos_sigma*(-1+2*$cos2sigma_m*$cos2sigma_m)-
+            $bb/6*$cos2sigma_m*(-3+4*$sin_sigma*$sin_sigma)*(-3+4*$cos2sigma_m*$cos2sigma_m)));
+        $c = ( $b*$aa*($sigma-$delta_sigma) ) / $self->{units}->{meter};
+    }
+    else{
+        croak('Unkown distance formula "'.$self->{formula}.'"');
+    }
+
+    return $unit * $c;
+}
+
 =head2 closest
 
     my $locations = $geo->closest(
