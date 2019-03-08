@@ -2,7 +2,7 @@ package Geo::Distance;
 use 5.008001;
 use strict;
 use warnings;
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 
 =encoding utf8
 
