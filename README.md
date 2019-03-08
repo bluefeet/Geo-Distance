@@ -92,9 +92,10 @@ argument.
     $geo->formula('cos');
 
 Allows you to retrieve and set the formula that is currently being used to
-calculate distances.  The available formulas are hsin, polar, cos and mt. hsin
-is the default and mt/cos are deprecated in favor of hsin. Polar should be used
-when calculating coordinates near the poles.
+calculate distances.  See the available ["FORMULAS"](#formulas).
+
+`hsin` is the default.  Both `mt` and `cos` are inferior in speed
+and accuracy to `hsin`.
 
 ## reg\_unit
 
@@ -184,6 +185,8 @@ the farther out your distance is, and the more locations in the table, the slowe
 `hsin` - See [GIS::Distance::Haversine](https://metacpan.org/pod/GIS::Distance::Haversine).
 
 `mt` - See [GIS::Distance::MathTrig](https://metacpan.org/pod/GIS::Distance::MathTrig).
+
+`null` - See [GIS::Distance::Null](https://metacpan.org/pod/GIS::Distance::Null).
 
 `polar` - See [GIS::Distance::Polar](https://metacpan.org/pod/GIS::Distance::Polar).
 

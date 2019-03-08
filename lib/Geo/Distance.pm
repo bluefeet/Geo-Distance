@@ -147,9 +147,10 @@ sub new {
     $geo->formula('cos');
 
 Allows you to retrieve and set the formula that is currently being used to
-calculate distances.  The available formulas are hsin, polar, cos and mt. hsin
-is the default and mt/cos are deprecated in favor of hsin. Polar should be used
-when calculating coordinates near the poles.
+calculate distances.  See the available L</FORMULAS>.
+
+C<hsin> is the default.  Both C<mt> and C<cos> are inferior in speed
+and accuracy to C<hsin>.
 
 =cut
 
@@ -159,15 +160,16 @@ sub formula {
     return $self->{formula} if !$_[0];
     my $formula = shift;
 
-    my $gis_formula = ($formula eq 'mt')    ? 'MathTrig'
+    my $gis_formula = ($formula eq 'hsin')  ? 'Haversine'
                     : ($formula eq 'cos')   ? 'Cosine'
-                    : ($formula eq 'hsin')  ? 'Haversine'
-                    : ($formula eq 'polar') ? 'Polar'
                     : ($formula eq 'gcd')   ? 'GreatCircle'
+                    : ($formula eq 'mt')    ? 'MathTrig'
+                    : ($formula eq 'null')  ? 'Null'
+                    : ($formula eq 'polar') ? 'Polar'
                     : ($formula eq 'tv')    ? 'Vincenty'
                     : undef;
 
-    croak('Invalid formula (only mt, cos, hsin, polar, gcd and tv are supported)')
+    croak('Unknown formula (only hsin, cos, gcd, mt, null, polar, and tv are supported)')
         if !$gis_formula;
 
     $self->{formula} = $formula;
@@ -255,6 +257,8 @@ use Math::Trig qw( pi deg2rad );
 sub old_distance {
     my($self,$unit,$lon1,$lat1,$lon2,$lat2) = @_;
     croak('Unkown unit type "'.$unit.'"') unless($unit = $self->{units}->{$unit});
+
+    return 0 if $self->{formula} eq 'null';
 
     if($self->{formula} eq 'mt'){
         return great_circle_distance(
@@ -466,6 +470,8 @@ C<gcd> - See L<GIS::Distance::GreatCircle>.
 C<hsin> - See L<GIS::Distance::Haversine>.
 
 C<mt> - See L<GIS::Distance::MathTrig>.
+
+C<null> - See L<GIS::Distance::Null>.
 
 C<polar> - See L<GIS::Distance::Polar>.
 
