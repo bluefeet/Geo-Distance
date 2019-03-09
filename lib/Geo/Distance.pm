@@ -279,7 +279,7 @@ sub distance {
     return $km * ($unit_rho / $KILOMETER_RHO);
 }
 
-use Math::Trig qw( pi deg2rad );
+use Math::Trig qw( acos asin atan deg2rad great_circle_distance pi tan );
 
 sub old_distance {
     my($self,$unit,$lon1,$lat1,$lon2,$lat2) = @_;
