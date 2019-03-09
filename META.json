@@ -44,8 +44,8 @@
          "requires" : {
             "Carp" : "0",
             "Const::Fast" : "0.014",
-            "GIS::Distance" : "0.11",
-            "GIS::Distance::Constants" : "0.11",
+            "GIS::Distance" : "0.13",
+            "GIS::Distance::Constants" : "0.13",
             "perl" : "5.008001"
          }
       },
@@ -70,7 +70,7 @@
          "web" : "https://github.com/bluefeet/Geo-Distance"
       }
    },
-   "version" : "0.22",
+   "version" : "0.23",
    "x_authority" : "cpan:BLUEFEET",
    "x_contributors" : [
       "Anirvan Chatterjee <anirvan@base.mx.org>",
