@@ -62,6 +62,37 @@ C<0.07> - OO only, and other changes all over.
 use GIS::Distance;
 use GIS::Distance::Constants qw( :all );
 use Carp qw( croak );
+use Const::Fast;
+
+=head1 FORMULAS
+
+C<cos> - See L<GIS::Distance::Cosine>.
+
+C<gcd> - See L<GIS::Distance::GreatCircle>.
+
+C<hsin> - See L<GIS::Distance::Haversine>.
+
+C<mt> - See L<GIS::Distance::MathTrig>.
+
+C<null> - See L<GIS::Distance::Null>.
+
+C<polar> - See L<GIS::Distance::Polar>.
+
+C<tv> - See L<GIS::Distance::Vincenty>.
+
+=cut
+
+const our %GEO_TO_GIS_FORMULA_MAP => (qw(
+    cos   Cosine
+    gcd   GreatCircle
+    hsin  Haversine
+    mt    MathTrig
+    null  Null
+    polar Polar
+    tv    Vincenty
+));
+
+const our @FORMULAS => (keys %GEO_TO_GIS_FORMULA_MAP);
 
 =head1 PROPERTIES
 
@@ -160,17 +191,13 @@ sub formula {
     return $self->{formula} if !$_[0];
     my $formula = shift;
 
-    my $gis_formula = ($formula eq 'hsin')  ? 'Haversine'
-                    : ($formula eq 'cos')   ? 'Cosine'
-                    : ($formula eq 'gcd')   ? 'GreatCircle'
-                    : ($formula eq 'mt')    ? 'MathTrig'
-                    : ($formula eq 'null')  ? 'Null'
-                    : ($formula eq 'polar') ? 'Polar'
-                    : ($formula eq 'tv')    ? 'Vincenty'
-                    : undef;
+    my $gis_formula = $GEO_TO_GIS_FORMULA_MAP{ $formula };
 
-    croak('Unknown formula (only hsin, cos, gcd, mt, null, polar, and tv are supported)')
-        if !$gis_formula;
+    croak(
+        'Unknown formula (available formulas are ',
+        join(', ', sort @FORMULAS),
+        ')',
+    ) if !$gis_formula;
 
     $self->{formula} = $formula;
     $self->{gis_formula} = $gis_formula;
@@ -460,22 +487,6 @@ sub closest {
 
 1;
 __END__
-
-=head1 FORMULAS
-
-C<cos> - See L<GIS::Distance::Cosine>.
-
-C<gcd> - See L<GIS::Distance::GreatCircle>.
-
-C<hsin> - See L<GIS::Distance::Haversine>.
-
-C<mt> - See L<GIS::Distance::MathTrig>.
-
-C<null> - See L<GIS::Distance::Null>.
-
-C<polar> - See L<GIS::Distance::Polar>.
-
-C<tv> - See L<GIS::Distance::Vincenty>.
 
 =head1 AUTHORS
 

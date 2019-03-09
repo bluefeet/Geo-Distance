@@ -1,5 +1,6 @@
 requires 'perl' => '5.008001';
 
+requires 'Const::Fast' => '0.014';
 requires 'GIS::Distance' => '0.11';
 requires 'GIS::Distance::Constants' => '0.11';
 

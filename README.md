@@ -49,6 +49,22 @@ will be noted here.
 
 `0.07` - OO only, and other changes all over.
 
+# FORMULAS
+
+`cos` - See [GIS::Distance::Cosine](https://metacpan.org/pod/GIS::Distance::Cosine).
+
+`gcd` - See [GIS::Distance::GreatCircle](https://metacpan.org/pod/GIS::Distance::GreatCircle).
+
+`hsin` - See [GIS::Distance::Haversine](https://metacpan.org/pod/GIS::Distance::Haversine).
+
+`mt` - See [GIS::Distance::MathTrig](https://metacpan.org/pod/GIS::Distance::MathTrig).
+
+`null` - See [GIS::Distance::Null](https://metacpan.org/pod/GIS::Distance::Null).
+
+`polar` - See [GIS::Distance::Polar](https://metacpan.org/pod/GIS::Distance::Polar).
+
+`tv` - See [GIS::Distance::Vincenty](https://metacpan.org/pod/GIS::Distance::Vincenty).
+
 # PROPERTIES
 
 ## UNITS
@@ -175,22 +191,6 @@ means that the SQL should work fine on almost any database (only tested on MySQL
 this also means that it is fast.  Once this sub set of locations has been retrieved 
 then more precise calculations are made to narrow down the result set.  Remember, though, that 
 the farther out your distance is, and the more locations in the table, the slower your searches will be.
-
-# FORMULAS
-
-`cos` - See [GIS::Distance::Cosine](https://metacpan.org/pod/GIS::Distance::Cosine).
-
-`gcd` - See [GIS::Distance::GreatCircle](https://metacpan.org/pod/GIS::Distance::GreatCircle).
-
-`hsin` - See [GIS::Distance::Haversine](https://metacpan.org/pod/GIS::Distance::Haversine).
-
-`mt` - See [GIS::Distance::MathTrig](https://metacpan.org/pod/GIS::Distance::MathTrig).
-
-`null` - See [GIS::Distance::Null](https://metacpan.org/pod/GIS::Distance::Null).
-
-`polar` - See [GIS::Distance::Polar](https://metacpan.org/pod/GIS::Distance::Polar).
-
-`tv` - See [GIS::Distance::Vincenty](https://metacpan.org/pod/GIS::Distance::Vincenty).
 
 # AUTHORS
 
