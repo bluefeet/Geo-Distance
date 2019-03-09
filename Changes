@@ -2,6 +2,7 @@ Revision history for Perl extension Geo-Distance.
 
 {{$NEXT}}
 
+ - Require GIS::Distance 0.13 so that tests pass.
  - Fixed a coordinate ordering bug in distance().
  - Added the null formula.
 
