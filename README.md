@@ -36,6 +36,10 @@ calculations.
 This module has been gutted and is now a wrapper around [GIS::Distance](https://metacpan.org/pod/GIS::Distance), please
 use that module instead.
 
+When switching from this module to [GIS::Distance](https://metacpan.org/pod/GIS::Distance) make sure you reverse the
+coordinates when passing them to ["distance" in GIS::Distance](https://metacpan.org/pod/GIS::Distance#distance).  GIS::Distance takes
+lat/lon pairs while Geo::Distance takes lon/lat pairs.
+
 # STABILITY
 
 The interface to Geo::Distance is fairly stable nowadays.  If this changes it 

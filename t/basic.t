@@ -9,6 +9,6 @@ use Geo::Distance;
 
 my $geo = Geo::Distance->new();
 my $dist = $geo->distance( 'mile', "-81.044","35.244", "-80.8272","35.1935" );
-is( int($dist), 14, 'measure a distance by mile' );
+is( int($dist), 12, 'measure a distance by mile' );
 
 done_testing;

@@ -24,10 +24,10 @@ $geo->closest( dbh=>$dbh, table=>'zips', lon=>'-80.7881', lat=>'35.22', unit=>'m
 my $locations;
 
 $locations = $geo->closest( dbh=>$dbh, table=>'zips', lon=>'-80.7881', lat=>'35.22', unit=>'mile', distance=>'5' );
-is( (@$locations+0), 12, 'found correct number of locations by mile' );
+is( (@$locations+0), 11, 'found correct number of locations by mile' );
 
 $locations = $geo->closest( dbh=>$dbh, table=>'zips', lon=>'-80.8577', lat=>'35.1316', unit=>'kilometer', distance=>'5' );
-is( (@$locations+0), 3, 'found correct number of locations by kilometer' );
+is( (@$locations+0), 2, 'found correct number of locations by kilometer' );
 
 $locations = $geo->closest( dbh=>$dbh, table=>'zips', lon=>'-80.8577', lat=>'35.1316', unit=>'mile', distance=>'5', count=>3 );
 is( (@$locations+0), 3, 'found correct number of locations limited by count' );

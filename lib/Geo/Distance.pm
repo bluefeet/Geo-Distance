@@ -44,6 +44,10 @@ calculations.
 This module has been gutted and is now a wrapper around L<GIS::Distance>, please
 use that module instead.
 
+When switching from this module to L<GIS::Distance> make sure you reverse the
+coordinates when passing them to L<GIS::Distance/distance>.  GIS::Distance takes
+lat/lon pairs while Geo::Distance takes lon/lat pairs.
+
 =head1 STABILITY
 
 The interface to Geo::Distance is fairly stable nowadays.  If this changes it 
@@ -274,7 +278,9 @@ sub distance {
     croak('Unkown unit type "' . $unit . '"') if !$unit_rho;
 
     my $gis = GIS::Distance->new( $self->{gis_formula} );
-    my $km = $gis->{code}->( $lon1, $lat1, $lon2, $lat2 );
+
+    # Reverse lon/lat to lat/lon, the way GIS::Distance wants it.
+    my $km = $gis->{code}->( $lat1, $lon1, $lat2, $lon2 );
 
     return $km * ($unit_rho / $KILOMETER_RHO);
 }
