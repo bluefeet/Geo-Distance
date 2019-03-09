@@ -2,6 +2,7 @@ Revision history for Perl extension Geo-Distance.
 
 {{$NEXT}}
 
+ - Fixed a coordinate ordering bug in distance().
  - Added the null formula.
 
 0.22 2019-03-08T18:36:39Z
