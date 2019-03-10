@@ -44,8 +44,8 @@
          "requires" : {
             "Carp" : "0",
             "Const::Fast" : "0.014",
-            "GIS::Distance" : "0.13",
-            "GIS::Distance::Constants" : "0.13",
+            "GIS::Distance" : "0.14",
+            "GIS::Distance::Constants" : "0.14",
             "perl" : "5.008001"
          }
       },

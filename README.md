@@ -55,6 +55,8 @@ will be noted here.
 
 # FORMULAS
 
+`alt` - See [GIS::Distance::ALT](https://metacpan.org/pod/GIS::Distance::ALT).
+
 `cos` - See [GIS::Distance::Cosine](https://metacpan.org/pod/GIS::Distance::Cosine).
 
 `gcd` - See [GIS::Distance::GreatCircle](https://metacpan.org/pod/GIS::Distance::GreatCircle).

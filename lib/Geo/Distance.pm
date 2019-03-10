@@ -70,6 +70,8 @@ use Const::Fast;
 
 =head1 FORMULAS
 
+C<alt> - See L<GIS::Distance::ALT>.
+
 C<cos> - See L<GIS::Distance::Cosine>.
 
 C<gcd> - See L<GIS::Distance::GreatCircle>.
@@ -87,6 +89,7 @@ C<tv> - See L<GIS::Distance::Vincenty>.
 =cut
 
 const our %GEO_TO_GIS_FORMULA_MAP => (qw(
+    alt   ALT
     cos   Cosine
     gcd   GreatCircle
     hsin  Haversine
