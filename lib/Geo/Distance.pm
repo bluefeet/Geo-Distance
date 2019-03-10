@@ -295,6 +295,7 @@ sub old_distance {
     croak('Unkown unit type "'.$unit.'"') unless($unit = $self->{units}->{$unit});
 
     return 0 if $self->{formula} eq 'null';
+    return 0 if $self->{formula} eq 'alt';
 
     if($self->{formula} eq 'mt'){
         return great_circle_distance(
