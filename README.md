@@ -42,48 +42,6 @@ When switching from this module to [GIS::Distance](https://metacpan.org/pod/GIS:
 coordinates when passing them to ["distance" in GIS::Distance](https://metacpan.org/pod/GIS::Distance#distance).  GIS::Distance takes
 lat/lon pairs while Geo::Distance takes lon/lat pairs.
 
-# FORMULAS
-
-- `alt` - See [GIS::Distance::ALT](https://metacpan.org/pod/GIS::Distance::ALT).
-- `cos` - See [GIS::Distance::Cosine](https://metacpan.org/pod/GIS::Distance::Cosine).
-- `gcd` - See [GIS::Distance::GreatCircle](https://metacpan.org/pod/GIS::Distance::GreatCircle).
-- `hsin` - See [GIS::Distance::Haversine](https://metacpan.org/pod/GIS::Distance::Haversine).
-- `mt` - See [GIS::Distance::MathTrig](https://metacpan.org/pod/GIS::Distance::MathTrig).
-- `null` - See [GIS::Distance::Null](https://metacpan.org/pod/GIS::Distance::Null).
-- `polar` - See [GIS::Distance::Polar](https://metacpan.org/pod/GIS::Distance::Polar).
-- `tv` - See [GIS::Distance::Vincenty](https://metacpan.org/pod/GIS::Distance::Vincenty).
-
-# UNITS
-
-The ["distance"](#distance) and ["closest"](#closest) functions take an argument containing the name
-of a registered unit, such as `kilometer`, to do the computation of distance with.
-By default a useful set of units are registered and custom units may be added with
-["reg\_unit"](#reg_unit).  The default set of units are:
-
-```
-kilometer, kilometre, meter, metre, centimeter, centimetre, millimeter,
-millimetre, yard, foot, inch, light second, mile, nautical mile,
-poppy seed, barleycorn, rod, pole, perch, chain, furlong, league, fathom
-```
-
-The ["no\_units"](#no_units) argument may be set to disable the default units from being
-registered.
-
-# LATITUDE AND LONGITUDE
-
-When a function needs a longitude and latitude, they must always be in decimal degree format.
-Here is some sample code for converting from other formats to decimal:
-
-```perl
-# DMS to Decimal
-my $decimal = $degrees + ($minutes/60) + ($seconds/3600);
-
-# Precision Six Integer to Decimal
-my $decimal = $integer * .000001;
-```
-
-If you want to convert from decimal radians to degrees you can use Math::Trig's rad2deg function.
-
 # ARGUMENTS
 
 ## no\_units
@@ -169,14 +127,14 @@ $geo->reg_unit( $key1 => $count2, $key2 );
 $geo->reg_unit( $count1, $key1 => $count2, $key2 );
 ```
 
-This method is used to create custom unit types.  There are several ways of calling it, 
-depending on if you are defining the unit from scratch, or if you are basing it off 
-of an existing unit (such as saying 12 inches = 1 foot ).  When defining a unit from 
+This method is used to create custom unit types.  There are several ways of calling it,
+depending on if you are defining the unit from scratch, or if you are basing it off
+of an existing unit (such as saying 12 inches = 1 foot ).  When defining a unit from
 scratch you pass the name and rho (radius of the earth in that unit) value.
 
-So, if you wanted to do your calculations in human adult steps you would have to have an 
-average human adult walk from the crust of the earth to the core (ignore the fact that 
-this is impossible).  So, assuming we did this and we came up with 43,200 steps, you'd 
+So, if you wanted to do your calculations in human adult steps you would have to have an
+average human adult walk from the crust of the earth to the core (ignore the fact that
+this is impossible).  So, assuming we did this and we came up with 43,200 steps, you'd
 do something like the following.
 
 ```
@@ -185,9 +143,9 @@ $geo->reg_unit( 43200, 'adult step' );
 # This can be read as "It takes 43,200 adult_steps to walk the radius of the earth".
 ```
 
-Now, if you also wanted to do distances in baby steps you might think "well, now I 
-gotta get a baby to walk to the center of the earth".  But, you don't have to!  If you do some 
-research you'll find (no research was actually conducted) that there are, on average, 
+Now, if you also wanted to do distances in baby steps you might think "well, now I
+gotta get a baby to walk to the center of the earth".  But, you don't have to!  If you do some
+research you'll find (no research was actually conducted) that there are, on average,
 4.7 baby steps in each adult step.
 
 ```perl
@@ -198,6 +156,48 @@ $geo->reg_unit( 4.7, 'baby step' => 'adult step' );
 
 And if we were doing this in reverse and already had the baby step unit but not 
 the adult step, you would still use the exact same syntax as above.
+
+# FORMULAS
+
+- `alt` - See [GIS::Distance::ALT](https://metacpan.org/pod/GIS::Distance::ALT).
+- `cos` - See [GIS::Distance::Cosine](https://metacpan.org/pod/GIS::Distance::Cosine).
+- `gcd` - See [GIS::Distance::GreatCircle](https://metacpan.org/pod/GIS::Distance::GreatCircle).
+- `hsin` - See [GIS::Distance::Haversine](https://metacpan.org/pod/GIS::Distance::Haversine).
+- `mt` - See [GIS::Distance::MathTrig](https://metacpan.org/pod/GIS::Distance::MathTrig).
+- `null` - See [GIS::Distance::Null](https://metacpan.org/pod/GIS::Distance::Null).
+- `polar` - See [GIS::Distance::Polar](https://metacpan.org/pod/GIS::Distance::Polar).
+- `tv` - See [GIS::Distance::Vincenty](https://metacpan.org/pod/GIS::Distance::Vincenty).
+
+# LATITUDE AND LONGITUDE
+
+When a function needs a longitude and latitude, they must always be in decimal degree format.
+Here is some sample code for converting from other formats to decimal:
+
+```perl
+# DMS to Decimal
+my $decimal = $degrees + ($minutes/60) + ($seconds/3600);
+
+# Precision Six Integer to Decimal
+my $decimal = $integer * .000001;
+```
+
+If you want to convert from decimal radians to degrees you can use Math::Trig's rad2deg function.
+
+# UNITS
+
+The ["distance"](#distance) and ["closest"](#closest) functions take an argument containing the name
+of a registered unit, such as `kilometer`, to do the computation of distance with.
+By default a useful set of units are registered and custom units may be added with
+["reg\_unit"](#reg_unit).  The default set of units are:
+
+```
+kilometer, kilometre, meter, metre, centimeter, centimetre, millimeter,
+millimetre, yard, foot, inch, light second, mile, nautical mile,
+poppy seed, barleycorn, rod, pole, perch, chain, furlong, league, fathom
+```
+
+The ["no\_units"](#no_units) argument may be set to disable the default units from being
+registered.
 
 # STABILITY
 
