@@ -2,6 +2,8 @@ Revision history for Perl extension Geo-Distance.
 
 {{$NEXT}}
 
+ - Many documentation edits.
+
 0.24 2019-03-10T06:48:33Z
 
  - Once again support the alt formula (now with a PP variant!).

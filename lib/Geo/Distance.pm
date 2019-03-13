@@ -48,97 +48,12 @@ When switching from this module to L<GIS::Distance> make sure you reverse the
 coordinates when passing them to L<GIS::Distance/distance>.  GIS::Distance takes
 lat/lon pairs while Geo::Distance takes lon/lat pairs.
 
-=head1 STABILITY
-
-The interface to Geo::Distance is fairly stable nowadays.  If this changes it 
-will be noted here.
-
-C<0.21> - All distance calculations are now handled by L<GIS::Distance>.
-
-C<0.10> - The closest() method has a changed argument syntax and no longer supports array searches.
-
-C<0.09> - Changed the behavior of the reg_unit function.
-
-C<0.07> - OO only, and other changes all over.
-
 =cut
 
 use GIS::Distance;
 use GIS::Distance::Constants qw( :all );
 use Carp qw( croak );
 use Const::Fast;
-
-=head1 FORMULAS
-
-C<alt> - See L<GIS::Distance::ALT>.
-
-C<cos> - See L<GIS::Distance::Cosine>.
-
-C<gcd> - See L<GIS::Distance::GreatCircle>.
-
-C<hsin> - See L<GIS::Distance::Haversine>.
-
-C<mt> - See L<GIS::Distance::MathTrig>.
-
-C<null> - See L<GIS::Distance::Null>.
-
-C<polar> - See L<GIS::Distance::Polar>.
-
-C<tv> - See L<GIS::Distance::Vincenty>.
-
-=cut
-
-const our %GEO_TO_GIS_FORMULA_MAP => (qw(
-    alt   ALT
-    cos   Cosine
-    gcd   GreatCircle
-    hsin  Haversine
-    mt    MathTrig
-    null  Null
-    polar Polar
-    tv    Vincenty
-));
-
-const our @FORMULAS => (keys %GEO_TO_GIS_FORMULA_MAP);
-
-=head1 PROPERTIES
-
-=head2 UNITS
-
-All functions accept a unit type to do the computations of distance with.  By default no units 
-are defined in a Geo::Distance object.  You can add units with reg_unit() or create some default 
-units with default_units().
-
-=head2 LATITUDE AND LONGITUDE
-
-When a function needs a longitude and latitude, they must always be in decimal degree format.
-Here is some sample code for converting from other formats to decimal:
-
-    # DMS to Decimal
-    my $decimal = $degrees + ($minutes/60) + ($seconds/3600);
-    
-    # Precision Six Integer to Decimal
-    my $decimal = $integer * .000001;
-
-If you want to convert from decimal radians to degrees you can use Math::Trig's rad2deg function.
-
-=head1 METHODS
-
-=head2 new
-
-    my $geo = new Geo::Distance;
-    my $geo = new Geo::Distance( no_units=>1 );
-
-Returns a blessed Geo::Distance object.  The new constructor accepts one optional 
-argument.
-
-    no_units - Whether or not to load the default units. Defaults to 0 (false).
-               kilometer, kilometre, meter, metre, centimeter, centimetre, millimeter, 
-               millimetre, yard, foot, inch, light second, mile, nautical mile, 
-               poppy seed, barleycorn, rod, pole, perch, chain, furlong, league, 
-               fathom
-
-=cut
 
 sub new {
     my $class = shift;
@@ -179,16 +94,103 @@ sub new {
     return $self;
 }
 
+=head1 FORMULAS
+
+=over
+
+=item *
+
+C<alt> - See L<GIS::Distance::ALT>.
+
+=item *
+
+C<cos> - See L<GIS::Distance::Cosine>.
+
+=item *
+
+C<gcd> - See L<GIS::Distance::GreatCircle>.
+
+=item *
+
+C<hsin> - See L<GIS::Distance::Haversine>.
+
+=item *
+
+C<mt> - See L<GIS::Distance::MathTrig>.
+
+=item *
+
+C<null> - See L<GIS::Distance::Null>.
+
+=item *
+
+C<polar> - See L<GIS::Distance::Polar>.
+
+=item *
+
+C<tv> - See L<GIS::Distance::Vincenty>.
+
+=back
+
+=cut
+
+const our %GEO_TO_GIS_FORMULA_MAP => (qw(
+    alt   ALT
+    cos   Cosine
+    gcd   GreatCircle
+    hsin  Haversine
+    mt    MathTrig
+    null  Null
+    polar Polar
+    tv    Vincenty
+));
+
+const our @FORMULAS => (keys %GEO_TO_GIS_FORMULA_MAP);
+
+=head1 UNITS
+
+The L</distance> and L</closest> functions take an argument containing the name
+of a registered unit, such as C<kilometer>, to do the computation of distance with.
+By default a useful set of units are registered and custom units may be added with
+L</reg_unit>.  The default set of units are:
+
+    kilometer, kilometre, meter, metre, centimeter, centimetre, millimeter,
+    millimetre, yard, foot, inch, light second, mile, nautical mile,
+    poppy seed, barleycorn, rod, pole, perch, chain, furlong, league, fathom
+
+The L</no_units> argument may be set to disable the default units from being
+registered.
+
+=head1 LATITUDE AND LONGITUDE
+
+When a function needs a longitude and latitude, they must always be in decimal degree format.
+Here is some sample code for converting from other formats to decimal:
+
+    # DMS to Decimal
+    my $decimal = $degrees + ($minutes/60) + ($seconds/3600);
+    
+    # Precision Six Integer to Decimal
+    my $decimal = $integer * .000001;
+
+If you want to convert from decimal radians to degrees you can use Math::Trig's rad2deg function.
+
+=head1 ARGUMENTS
+
+=head2 no_units
+
+Set this to disable the loading of the default units as described in L</UNITS>.
+
+=head1 ACCESSORS
+
 =head2 formula
 
-    if($geo->formula eq 'hsin'){ ... }
+    if ($geo->formula() eq 'hsin') { ... }
     $geo->formula('cos');
 
-Allows you to retrieve and set the formula that is currently being used to
-calculate distances.  See the available L</FORMULAS>.
+Set and get the formula that is currently being used to calculate distances.
+See the available L</FORMULAS>.
 
-C<hsin> is the default.  Both C<mt> and C<cos> are inferior in speed
-and accuracy to C<hsin>.
+C<hsin> is the default.
 
 =cut
 
@@ -212,59 +214,7 @@ sub formula {
     return $formula;
 }
 
-=head2 reg_unit
-
-    $geo->reg_unit( $radius, $key );
-    $geo->reg_unit( $key1 => $key2 );
-    $geo->reg_unit( $count1, $key1 => $key2 );
-    $geo->reg_unit( $key1 => $count2, $key2 );
-    $geo->reg_unit( $count1, $key1 => $count2, $key2 );
-
-This method is used to create custom unit types.  There are several ways of calling it, 
-depending on if you are defining the unit from scratch, or if you are basing it off 
-of an existing unit (such as saying 12 inches = 1 foot ).  When defining a unit from 
-scratch you pass the name and rho (radius of the earth in that unit) value.
-
-So, if you wanted to do your calculations in human adult steps you would have to have an 
-average human adult walk from the crust of the earth to the core (ignore the fact that 
-this is impossible).  So, assuming we did this and we came up with 43,200 steps, you'd 
-do something like the following.
-
-    # Define adult step unit.
-    $geo->reg_unit( 43200, 'adult step' );
-    # This can be read as "It takes 43,200 adult_steps to walk the radius of the earth".
-
-Now, if you also wanted to do distances in baby steps you might think "well, now I 
-gotta get a baby to walk to the center of the earth".  But, you don't have to!  If you do some 
-research you'll find (no research was actually conducted) that there are, on average, 
-4.7 baby steps in each adult step.
-
-    # Define baby step unit.
-    $geo->reg_unit( 4.7, 'baby step' => 'adult step' );
-    # This can be read as "4.7 baby steps is the same as one adult step".
-
-And if we were doing this in reverse and already had the baby step unit but not 
-the adult step, you would still use the exact same syntax as above.
-
-=cut
-
-sub reg_unit {
-    my $self = shift;
-    my $units = $self->{units};
-    my($count1,$key1,$count2,$key2);
-    $count1 = shift;
-    if($count1=~/[^\.0-9]/ or !@_){ $key1=$count1; $count1=1; }
-    else{ $key1 = shift; }
-    if(!@_){
-        $units->{$key1} = $count1;
-    }else{
-        $count2 = shift;
-        if($count2=~/[^\.0-9]/ or !@_){ $key2=$count2; $count2=1; }
-        else{ $key2 = shift; }
-        ($key1,$key2) = ($key2,$key1) if( defined $units->{$key1} );
-        $units->{$key1} = ($units->{$key2}*$count1) / $count2;
-    }
-}
+=head1 METHODS
 
 =head2 distance
 
@@ -495,8 +445,87 @@ sub closest {
     return $locations;
 }
 
+=head2 reg_unit
+
+    $geo->reg_unit( $radius, $key );
+    $geo->reg_unit( $key1 => $key2 );
+    $geo->reg_unit( $count1, $key1 => $key2 );
+    $geo->reg_unit( $key1 => $count2, $key2 );
+    $geo->reg_unit( $count1, $key1 => $count2, $key2 );
+
+This method is used to create custom unit types.  There are several ways of calling it, 
+depending on if you are defining the unit from scratch, or if you are basing it off 
+of an existing unit (such as saying 12 inches = 1 foot ).  When defining a unit from 
+scratch you pass the name and rho (radius of the earth in that unit) value.
+
+So, if you wanted to do your calculations in human adult steps you would have to have an 
+average human adult walk from the crust of the earth to the core (ignore the fact that 
+this is impossible).  So, assuming we did this and we came up with 43,200 steps, you'd 
+do something like the following.
+
+    # Define adult step unit.
+    $geo->reg_unit( 43200, 'adult step' );
+    # This can be read as "It takes 43,200 adult_steps to walk the radius of the earth".
+
+Now, if you also wanted to do distances in baby steps you might think "well, now I 
+gotta get a baby to walk to the center of the earth".  But, you don't have to!  If you do some 
+research you'll find (no research was actually conducted) that there are, on average, 
+4.7 baby steps in each adult step.
+
+    # Define baby step unit.
+    $geo->reg_unit( 4.7, 'baby step' => 'adult step' );
+    # This can be read as "4.7 baby steps is the same as one adult step".
+
+And if we were doing this in reverse and already had the baby step unit but not 
+the adult step, you would still use the exact same syntax as above.
+
+=cut
+
+sub reg_unit {
+    my $self = shift;
+    my $units = $self->{units};
+    my($count1,$key1,$count2,$key2);
+    $count1 = shift;
+    if($count1=~/[^\.0-9]/ or !@_){ $key1=$count1; $count1=1; }
+    else{ $key1 = shift; }
+    if(!@_){
+        $units->{$key1} = $count1;
+    }else{
+        $count2 = shift;
+        if($count2=~/[^\.0-9]/ or !@_){ $key2=$count2; $count2=1; }
+        else{ $key2 = shift; }
+        ($key1,$key2) = ($key2,$key1) if( defined $units->{$key1} );
+        $units->{$key1} = ($units->{$key2}*$count1) / $count2;
+    }
+}
+
 1;
 __END__
+
+=head1 STABILITY
+
+The interface to Geo::Distance is fairly stable nowadays.  If this changes it 
+will be noted here.
+
+=over
+
+=item *
+
+C<0.21> - All distance calculations are now handled by L<GIS::Distance>.
+
+=item *
+
+C<0.10> - The closest() method has a changed argument syntax and no longer supports array searches.
+
+=item *
+
+C<0.09> - Changed the behavior of the reg_unit function.
+
+=item *
+
+C<0.07> - OO only, and other changes all over.
+
+=back
 
 =head1 SUPPORT
 
