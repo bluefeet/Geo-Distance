@@ -498,6 +498,16 @@ sub closest {
 1;
 __END__
 
+=head1 SUPPORT
+
+Please submit bugs and feature requests to the
+Geo-Distance GitHub issue tracker:
+
+L<https://github.com/bluefeet/Geo-Distance/issues>
+
+Note that, due to the L</DEPRECATED> nature of this distribution,
+new features and such may be denied.
+
 =head1 AUTHORS
 
     Aran Clary Deltac <bluefeet@cpan.org>
