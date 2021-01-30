@@ -527,7 +527,7 @@ new features and such may be denied.
 
 =head1 AUTHORS
 
-    Aran Clary Deltac <bluefeet@cpan.org>
+    Aran Clary Deltac <bluefeet@gmail.com>
     gray <gray@cpan.org>
     Anirvan Chatterjee <anirvan@base.mx.org>
     Ævar Arnfjörð Bjarmason <avarab@gmail.com>

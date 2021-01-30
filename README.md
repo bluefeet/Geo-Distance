@@ -35,11 +35,11 @@ calculations.
 
 # DEPRECATED
 
-This module has been gutted and is now a wrapper around [GIS::Distance](https://metacpan.org/pod/GIS::Distance), please
+This module has been gutted and is now a wrapper around [GIS::Distance](https://metacpan.org/pod/GIS%3A%3ADistance), please
 use that module instead.
 
-When switching from this module to [GIS::Distance](https://metacpan.org/pod/GIS::Distance) make sure you reverse the
-coordinates when passing them to ["distance" in GIS::Distance](https://metacpan.org/pod/GIS::Distance#distance).  GIS::Distance takes
+When switching from this module to [GIS::Distance](https://metacpan.org/pod/GIS%3A%3ADistance) make sure you reverse the
+coordinates when passing them to ["distance" in GIS::Distance](https://metacpan.org/pod/GIS%3A%3ADistance#distance).  GIS::Distance takes
 lat/lon pairs while Geo::Distance takes lon/lat pairs.
 
 # ARGUMENTS
@@ -159,14 +159,14 @@ the adult step, you would still use the exact same syntax as above.
 
 # FORMULAS
 
-- `alt` - See [GIS::Distance::ALT](https://metacpan.org/pod/GIS::Distance::ALT).
-- `cos` - See [GIS::Distance::Cosine](https://metacpan.org/pod/GIS::Distance::Cosine).
-- `gcd` - See [GIS::Distance::GreatCircle](https://metacpan.org/pod/GIS::Distance::GreatCircle).
-- `hsin` - See [GIS::Distance::Haversine](https://metacpan.org/pod/GIS::Distance::Haversine).
-- `mt` - See [GIS::Distance::MathTrig](https://metacpan.org/pod/GIS::Distance::MathTrig).
-- `null` - See [GIS::Distance::Null](https://metacpan.org/pod/GIS::Distance::Null).
-- `polar` - See [GIS::Distance::Polar](https://metacpan.org/pod/GIS::Distance::Polar).
-- `tv` - See [GIS::Distance::Vincenty](https://metacpan.org/pod/GIS::Distance::Vincenty).
+- `alt` - See [GIS::Distance::ALT](https://metacpan.org/pod/GIS%3A%3ADistance%3A%3AALT).
+- `cos` - See [GIS::Distance::Cosine](https://metacpan.org/pod/GIS%3A%3ADistance%3A%3ACosine).
+- `gcd` - See [GIS::Distance::GreatCircle](https://metacpan.org/pod/GIS%3A%3ADistance%3A%3AGreatCircle).
+- `hsin` - See [GIS::Distance::Haversine](https://metacpan.org/pod/GIS%3A%3ADistance%3A%3AHaversine).
+- `mt` - See [GIS::Distance::MathTrig](https://metacpan.org/pod/GIS%3A%3ADistance%3A%3AMathTrig).
+- `null` - See [GIS::Distance::Null](https://metacpan.org/pod/GIS%3A%3ADistance%3A%3ANull).
+- `polar` - See [GIS::Distance::Polar](https://metacpan.org/pod/GIS%3A%3ADistance%3A%3APolar).
+- `tv` - See [GIS::Distance::Vincenty](https://metacpan.org/pod/GIS%3A%3ADistance%3A%3AVincenty).
 
 # LATITUDE AND LONGITUDE
 
@@ -204,7 +204,7 @@ registered.
 The interface to Geo::Distance is fairly stable nowadays.  If this changes it 
 will be noted here.
 
-- `0.21` - All distance calculations are now handled by [GIS::Distance](https://metacpan.org/pod/GIS::Distance).
+- `0.21` - All distance calculations are now handled by [GIS::Distance](https://metacpan.org/pod/GIS%3A%3ADistance).
 - `0.10` - The closest() method has a changed argument syntax and no longer supports array searches.
 - `0.09` - Changed the behavior of the reg\_unit function.
 - `0.07` - OO only, and other changes all over.
@@ -222,7 +222,7 @@ new features and such may be denied.
 # AUTHORS
 
 ```
-Aran Clary Deltac <bluefeet@cpan.org>
+Aran Clary Deltac <bluefeet@gmail.com>
 gray <gray@cpan.org>
 Anirvan Chatterjee <anirvan@base.mx.org>
 Ævar Arnfjörð Bjarmason <avarab@gmail.com>
