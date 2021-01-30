@@ -2,7 +2,7 @@ package Geo::Distance;
 use 5.008001;
 use strict;
 use warnings;
-our $VERSION = '0.24';
+our $VERSION = '0.25';
 
 use GIS::Distance;
 use GIS::Distance::Constants qw( :all );

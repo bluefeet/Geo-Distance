@@ -70,7 +70,7 @@
          "web" : "https://github.com/bluefeet/Geo-Distance"
       }
    },
-   "version" : "0.24",
+   "version" : "0.25",
    "x_authority" : "cpan:BLUEFEET",
    "x_contributors" : [
       "Anirvan Chatterjee <anirvan@base.mx.org>",
