@@ -1,6 +1,7 @@
 name = "Geo-Distance"
-authority="cpan:BLUEFEET"
+authority = "cpan:BLUEFEET"
 markdown_maker = "Pod::Markdown::Github"
+license = "perl_5"
 
 [Metadata]
 x_deprecated = 1
